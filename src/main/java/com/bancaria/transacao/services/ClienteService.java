@@ -55,4 +55,17 @@ public class ClienteService {
             );
         }
     }
+
+    @Transactional
+    public ClienteDTO inserir(ClienteDTO dto){
+        Cliente entidade = new Cliente();
+        copiarDtoParaEntidade(dto, entidade);
+        entidade = clienteRepository.save(entidade);
+        return new ClienteDTO(entidade);
+    }
+
+    private void copiarDtoParaEntidade(ClienteDTO dto, Cliente entidade){
+        entidade.setNome(dto.getNome());
+        entidade.setCpf(dto.getCpf());
+    }
 }
