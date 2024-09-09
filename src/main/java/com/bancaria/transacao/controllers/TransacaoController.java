@@ -5,6 +5,7 @@ import com.bancaria.transacao.dtos.TransacaoDTO;
 import com.bancaria.transacao.services.TransacaoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,5 +25,11 @@ public class TransacaoController {
     public ResponseEntity<List<TransacaoDTO>> BuscarTodasAsTransacoes(){
         List<TransacaoDTO> dtoList = transacaoService.buscarTodos();
         return ResponseEntity.ok().body(dtoList);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<TransacaoDTO> buscarTransacaoPorId(@PathVariable Long id){
+        TransacaoDTO dto = transacaoService.buscarPorId(id);
+        return ResponseEntity.ok().body(dto);
     }
 }
