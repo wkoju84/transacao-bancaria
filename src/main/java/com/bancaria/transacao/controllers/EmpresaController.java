@@ -4,7 +4,9 @@ import com.bancaria.transacao.dtos.EmpresaDTO;
 import com.bancaria.transacao.services.EmpresaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -33,5 +35,13 @@ public class EmpresaController {
     public ResponseEntity<Void> excluirEmpresa(@PathVariable Long id){
         empresaService.excluir(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<EmpresaDTO> inserirEmpresa(@RequestBody EmpresaDTO dto){
+        dto = empresaService.inserir(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
     }
 }
