@@ -4,10 +4,7 @@ import com.bancaria.transacao.dtos.EmpresaDTO;
 import com.bancaria.transacao.dtos.TransacaoDTO;
 import com.bancaria.transacao.services.TransacaoService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +28,11 @@ public class TransacaoController {
     public ResponseEntity<TransacaoDTO> buscarTransacaoPorId(@PathVariable Long id){
         TransacaoDTO dto = transacaoService.buscarPorId(id);
         return ResponseEntity.ok().body(dto);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> excluirTransacao(@PathVariable Long id){
+        transacaoService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }
