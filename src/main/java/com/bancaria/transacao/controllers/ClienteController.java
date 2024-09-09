@@ -45,4 +45,11 @@ public class ClienteController {
                 .buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ClienteDTO> atualizarCliente(@PathVariable Long id,
+                                                       @RequestBody ClienteDTO dto){
+        dto = clienteService.atualizar(id, dto);
+        return ResponseEntity.ok().body(dto);
+    }
 }
