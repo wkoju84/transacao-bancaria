@@ -3,7 +3,10 @@ package com.bancaria.transacao.services;
 import com.bancaria.transacao.dtos.EmpresaDTO;
 import com.bancaria.transacao.entities.Empresa;
 import com.bancaria.transacao.repositories.EmpresaRepository;
+import com.bancaria.transacao.services.exceptions.BancoDeDadosException;
 import com.bancaria.transacao.services.exceptions.EntidadeNaoEncontradaException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,5 +36,21 @@ public class EmpresaService {
                 "Registro " + id + " não encontrado em sua base de dados!"
         ));
         return new EmpresaDTO(entidade);
+    }
+
+    public void excluir(Long id){
+        try {
+            empresaRepository.deleteById(id);
+        }
+        catch (EmptyResultDataAccessException e){
+            throw new EntidadeNaoEncontradaException(
+                    "Exclusão impossível: Registro " + id + " não encontrado em sua base de dados!"
+            );
+        }
+        catch (DataIntegrityViolationException e){
+            throw new BancoDeDadosException(
+                    "Violação de integridade: Registro " + id + " está inserido em outro registro!"
+            );
+        }
     }
 }
