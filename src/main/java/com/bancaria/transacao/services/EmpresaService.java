@@ -5,6 +5,7 @@ import com.bancaria.transacao.entities.Empresa;
 import com.bancaria.transacao.repositories.EmpresaRepository;
 import com.bancaria.transacao.services.exceptions.BancoDeDadosException;
 import com.bancaria.transacao.services.exceptions.EntidadeNaoEncontradaException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -60,6 +61,21 @@ public class EmpresaService {
         copiarDtoParaEntidade(dto, entidade);
         entidade = empresaRepository.save(entidade);
         return new EmpresaDTO(entidade);
+    }
+
+    @Transactional
+    public EmpresaDTO atualizar(Long id, EmpresaDTO dto){
+        try {
+            Empresa entidade = empresaRepository.getReferenceById(id);
+            copiarDtoParaEntidade(dto, entidade);
+            entidade = empresaRepository.save(entidade);
+            return new EmpresaDTO(entidade);
+        }
+        catch (EntityNotFoundException e){
+            throw new EntidadeNaoEncontradaException(
+                    "Registro " + id + " não encontrado em sua base de dados!"
+            );
+        }
     }
 
     private void copiarDtoParaEntidade(EmpresaDTO dto, Empresa entidade){
