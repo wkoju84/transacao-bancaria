@@ -3,10 +3,7 @@ package com.bancaria.transacao.controllers;
 import com.bancaria.transacao.dtos.EmpresaDTO;
 import com.bancaria.transacao.services.EmpresaService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +27,11 @@ public class EmpresaController {
     public ResponseEntity<EmpresaDTO> buscarEmpresaPorId(@PathVariable Long id){
         EmpresaDTO dto = empresaService.buscarPorId(id);
         return ResponseEntity.ok().body(dto);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> excluirEmpresa(@PathVariable Long id){
+        empresaService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }
