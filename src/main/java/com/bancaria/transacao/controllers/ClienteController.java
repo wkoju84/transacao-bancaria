@@ -5,6 +5,7 @@ import com.bancaria.transacao.dtos.EmpresaDTO;
 import com.bancaria.transacao.services.ClienteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,5 +25,11 @@ public class ClienteController {
     public ResponseEntity<List<ClienteDTO>> BuscarTodosOsClientes(){
         List<ClienteDTO> dtoList = clienteService.buscarTodos();
         return ResponseEntity.ok().body(dtoList);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ClienteDTO> buscarClientePorId(@PathVariable Long id){
+        ClienteDTO dto = clienteService.buscarPorId(id);
+        return ResponseEntity.ok().body(dto);
     }
 }
