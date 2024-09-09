@@ -44,4 +44,11 @@ public class EmpresaController {
                 .buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<EmpresaDTO> atualizaEmpresa(@PathVariable Long id,
+                                                      @RequestBody EmpresaDTO dto){
+        dto = empresaService.atualizar(id, dto);
+        return ResponseEntity.ok().body(dto);
+    }
 }
