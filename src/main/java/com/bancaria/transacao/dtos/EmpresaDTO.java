@@ -2,9 +2,14 @@ package com.bancaria.transacao.dtos;
 
 import com.bancaria.transacao.entities.Empresa;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class EmpresaDTO {
+public class EmpresaDTO implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private Long id;
     private String nome;

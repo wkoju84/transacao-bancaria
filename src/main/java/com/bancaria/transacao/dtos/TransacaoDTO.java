@@ -5,10 +5,15 @@ import com.bancaria.transacao.entities.Empresa;
 import com.bancaria.transacao.entities.Transacao;
 import com.bancaria.transacao.enums.TipoTransacao;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class TransacaoDTO {
+public class TransacaoDTO implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private Long id;
     private Empresa empresa;

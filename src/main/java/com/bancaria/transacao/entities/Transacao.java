@@ -3,11 +3,16 @@ package com.bancaria.transacao.entities;
 import com.bancaria.transacao.enums.TipoTransacao;
 import jakarta.persistence.*;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-public class Transacao {
+public class Transacao implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

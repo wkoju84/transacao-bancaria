@@ -2,7 +2,13 @@ package com.bancaria.transacao.dtos;
 
 import com.bancaria.transacao.entities.Cliente;
 
-public class ClienteDTO {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class ClienteDTO implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private Long id;
     private String nome;
