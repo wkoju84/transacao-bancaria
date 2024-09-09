@@ -53,4 +53,19 @@ public class EmpresaService {
             );
         }
     }
+
+    @Transactional
+    public EmpresaDTO inserir(EmpresaDTO dto){
+        Empresa entidade = new Empresa();
+        copiarDtoParaEntidade(dto, entidade);
+        entidade = empresaRepository.save(entidade);
+        return new EmpresaDTO(entidade);
+    }
+
+    private void copiarDtoParaEntidade(EmpresaDTO dto, Empresa entidade){
+        entidade.setNome(dto.getNome());
+        entidade.setCnpj(dto.getCnpj());
+        entidade.setSaldo(dto.getSaldo());
+        entidade.setTaxaSistema(dto.getTaxaSistema());
+    }
 }
