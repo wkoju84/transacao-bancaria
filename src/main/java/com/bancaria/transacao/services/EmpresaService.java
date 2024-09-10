@@ -79,6 +79,7 @@ public class EmpresaService {
     }
 
     private void copiarDtoParaEntidade(EmpresaDTO dto, Empresa entidade){
+        entidade.setId(dto.getId());
         entidade.setNome(dto.getNome());
         entidade.setCnpj(dto.getCnpj());
         entidade.setSaldo(dto.getSaldo());

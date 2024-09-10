@@ -1,11 +1,12 @@
 package com.bancaria.transacao.controllers;
 
-import com.bancaria.transacao.dtos.EmpresaDTO;
 import com.bancaria.transacao.dtos.TransacaoDTO;
 import com.bancaria.transacao.services.TransacaoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -34,5 +35,15 @@ public class TransacaoController {
     public ResponseEntity<Void> excluirTransacao(@PathVariable Long id){
         transacaoService.excluir(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping
+    public ResponseEntity<TransacaoDTO> inserirTransacao(@RequestBody TransacaoDTO dto){
+
+        // Chama o serviço para realizar a transação
+        TransacaoDTO novaTransacao = transacaoService.realizarTransacao(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(novaTransacao.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
     }
 }

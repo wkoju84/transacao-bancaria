@@ -7,3 +7,5 @@ INSERT INTO empresa(nome, cnpj) VALUES ('Mecânica Pit Stop', '452144/0001');
 INSERT INTO transacao(empresa_id, cliente_id, valor, tipo_transacao, valor_taxa) VALUES (1, 2, 100.0, 0, 0.1);
 INSERT INTO transacao(empresa_id, cliente_id, valor, tipo_transacao, valor_taxa) VALUES (2, 1, 1500.0, 1, 0.1);
 INSERT INTO transacao(empresa_id, cliente_id, valor, tipo_transacao, valor_taxa) VALUES (1, 1, 300.0, 1, 0.1);
+
+insert into transacao (empresa_id, cliente_id, tipo_transacao, valor, valor_taxa, data_hora) values (1, 1, 0, 400.0, 1.2, null);
